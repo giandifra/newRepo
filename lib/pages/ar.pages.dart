@@ -10,11 +10,11 @@ class ShowingAR extends StatefulWidget {
 }
 
 class _ShowingARState extends State<ShowingAR> {
- 
-ArCoreController arCoreController;
+  ArCoreController arCoreController;
 
   _onArCoreViewCreated(ArCoreController _arcoreController) {
     arCoreController = _arcoreController;
+    _addCustomObject(arCoreController);
     _addSphere(arCoreController);
     _addCube(arCoreController);
     _addCyclinder(arCoreController);
@@ -25,6 +25,19 @@ ArCoreController arCoreController;
     final sphere = ArCoreSphere(materials: [material], radius: 0.2);
     final node = ArCoreNode(
       shape: sphere,
+      position: vector.Vector3(
+        0,
+        0,
+        -1,
+      ),
+    );
+
+    _arcoreController.addArCoreNode(node);
+  }
+
+  _addCustomObject(ArCoreController _arcoreController) {
+    final node = ArCoreReferenceNode(
+      obcject3DFileName: 'dragon.sfb',
       position: vector.Vector3(
         0,
         0,
@@ -81,5 +94,4 @@ ArCoreController arCoreController;
       ),
     );
   }
-  
 }
